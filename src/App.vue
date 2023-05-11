@@ -2,8 +2,12 @@
 import Phone from './components/Phone.vue';
 import { storeToRefs } from "pinia";
 import { useGlobalStore } from './stores/GlobalStore.js';
+import { ref } from 'vue';
 const { Logo, Colors } = storeToRefs(useGlobalStore());
-
+const finalTheme = ref("");
+const PrintTheme = () => {
+  finalTheme.value = JSON.stringify(Colors.value);
+};
 </script>
 
 <template>
@@ -96,6 +100,12 @@ const { Logo, Colors } = storeToRefs(useGlobalStore());
       <div>
         <label>Color de descripciones</label>
         <input type="color" v-model="Colors.DescriptionColor">
+      </div>
+      <div>
+        <button @click="PrintTheme">Obtener tema</button>
+      </div>
+      <div>
+        <textarea style="width: 90%;" rows="10">{{ finalTheme }}</textarea>
       </div>
     </div>
     <div class="phone">
